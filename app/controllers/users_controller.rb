@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action(:force_sign_in, {:only => [:registration_form, :create, :sign_in, :add_cookie]})
+  skip_before_action(:force_sign_in, {:only => [:registration_form, :create, :sign_in, :sign_up_form, :add_cookie]})
   
   def sign_up_form
     render("users/sign_up_form.html.erb")
@@ -76,7 +76,7 @@ class UsersController < ApplicationController
     user.username = params.fetch(:input_username, nil)
     user.password = params.fetch(:input_password)
     user.password_confirmation = params.fetch(:input_password_confirmation)
-    user.board = params.fetch(:input_board, False)
+    user.board = params.fetch(:input_board, FALSE)
     user.date_of_birth = params.fetch(:input_dob, nil)
     user.ethnicity = params.fetch(:input_ethnicity, nil)
     user.first_name = params.fetch(:input_first_name, nil)
@@ -85,7 +85,7 @@ class UsersController < ApplicationController
     user.last_name = params.fetch(:input_last_name, nil)
     user.linkedin = params.fetch(:input_linkedin, nil)
     user.major = params.fetch(:input_major, nil)
-    user.subscriber = params.fetch(:input_subscriber, False)
+    user.subscriber = params.fetch(:input_subscriber, FALSE)
 
     save_status = user.save
     
@@ -99,7 +99,7 @@ class UsersController < ApplicationController
         end
 
         format.html do
-          redirect_to("/users/#{user.username}")
+          redirect_to("/users/#{user.id}")
         end
       end
     
