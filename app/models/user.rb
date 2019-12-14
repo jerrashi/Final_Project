@@ -32,10 +32,19 @@ class User < ApplicationRecord
   def applications
     return Application.where({ :applicant_id => self.id })
   end
+  
+  def most_recent_application
+    return self.applications.order({ :created_at => :descending }).at(0)
+  end
 
   def projects
     array_of_project_labels = application.where({ :student_id => self.id, :status => "enrolled"}).pluck(:project_label)
     return Project.where({ :project_label => array_of_project_labels, :student_id => self.id})
+  end
+
+
+  def most_recent_project
+    return self.projects.order({ :created_at => :descending }).at(0)
   end
 
 end

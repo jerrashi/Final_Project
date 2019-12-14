@@ -1,0 +1,160 @@
+<h1><%= @user.first_name @user.last_name %></h1>
+Email: <%= @user.username %>
+
+<dl>
+  <% if @user.board%>
+    <dt>Board Member</dt>
+  <% end %>
+
+  <% if @user.applications != nil%>
+    <dt><a href="/users/<%= @user.id %>/applications">Applications</a> (<%= @user.applications.count%>)</dt>
+    <dd>Most Recent:
+      <table border="1">
+        <tr>
+          <th>
+            Date
+          </th>
+
+          <th>
+            Project
+          </th>
+
+          <th>
+            Result
+          </th>
+
+          <th>
+          </th>
+        </tr>
+        <tr>
+
+          <td>
+            <%= @user.most_recent_application.created_at %>
+          </td>
+
+          <td>
+            <%= @user.most_recent_application.project_label %>
+          </td>
+
+          <td>
+            <%= @user.most_recent_application.status %>
+          </td>
+
+          <td>
+            <a href="/users/<%= @user.id %>/applications/<%= @user.most_recent_application.id %>">
+              Link
+            </a>
+          </td>
+        </tr>
+      </table>
+    </dd>
+
+  <%= else %>
+    <dt>Applications (<%= @user.applications.count%>)</dt>
+  <%= end %>
+  <dd>
+    <a href = "/users/<%= @user.id %>/insert_application_record"> Submit new application </a>
+  </dd>
+
+  <dt><a href="/users/<%= @user.id %>/projects">Projects</a></dt>
+  <%= if @user.projects != nil%>
+    <dt><a href="/users/<%= @user.id %>/projects">Projects</a> (<%= @user.projects.count%>)</dt>
+    <dd>Most Recent:
+      <table border="1">
+        <tr>
+          <th>
+            Date
+          </th>
+
+          <th>
+            Project
+          </th>
+
+          <th>
+            Client
+          </th>
+
+          <th>
+            Description
+          </th>
+
+          <th>
+          </th>
+        </tr>
+        <tr>
+
+          <td>
+            <%= @user.most_recent_project.created_at %>
+          </td>
+
+          <td>
+            <%= @user.most_recent_project.project_label %>
+          </td>
+
+          <td>
+            <%= @user.most_recent_project.client %>
+          </td>
+
+          <td>
+            <%= @user.most_recent_project.description %>
+          </td>
+
+          <td>
+            <a href="/users/<%= @user.id %>/projects/<%= @user.most_recent_project.id %>">
+              Link
+            </a>
+          </td>
+        </tr>
+      </table>
+    </dd>
+  <%= else %>
+    <dt>Projects (<%= @user.projects.count%>)</dt>
+  <%= end %>
+
+  <dt>Update Profile Information</dt>
+  <dd>
+    <form action="/update_user/<%= @user.id %>" method="post">
+      <label for="browser_username">Email: </label>
+      <input id="browser_username" type="email" name="input_username" placeholder="Update your email address...">
+
+      <label for="browser_first_name">First name: </label>
+      <input id="browser_first_name" type="text" name="input_first_name" value=<%= @user.first_name %>>
+
+      <label for="browser_last_name">Last name: </label>
+      <input id="browser_last_name" type="text" name="input_last_name" value=<%= @user.last_name %>>
+
+      # need to find way to edit board status of users besides users manually updating it themselves
+      <label for="browser_board">Board?</label>
+      <input id="browser_board" type="checkbox" name="input_board" <%= " checked" if @user.board %>>
+
+      <label for="browser_dob">Date of Birth: </label>
+      <input id="browser_dob" type="date" name="input_dob"  value=<%= @user.date_of_birth %>>
+
+      <label for="browser_ethnicity">Ethnicity: </label>
+      <input id="browser_ethnicity" type="text" name="input_ethnicity"  value=<%= @user.ethnicity %>>
+
+      <label for="browser_gender">Gender: </label>
+      <input id="browser_gender" type="text" name="input_gender"  value=<%= @user.gender %>>
+
+      <label for="browser_graduation_date">Expected Graduation Date: </label>
+      <input id="browser_graduation_date" type="month" name="input_graduation_date"  value=<%= @user.graduation_date %>>
+
+      <label for="browser_linkedin">Linkedin: </label>
+      <input id="browser_linkedin" type="text" name="input_linkedin"  value=<%= @user.linkedin %>>
+
+      <label for="browser_major">Major: </label>
+      <input id="browser_major" type="text" name="input_major"  value=<%= @user.major %>>
+
+      <label for="browser_subscriber">Subscriber: </label>
+      <input id="browser_subscriber" type="checkbox" name="input_subscriber"  <%= " checked" if @user.subscriber %>>
+
+      # <label for="browser_password">New Password: </label>
+      # <input id="browser_password" type="password" name="input_password">
+
+      # <label for="browser_major">Confirm New Password: </label>
+      # <input id="browser_major" type="text" name="input_major"  value=<%= @user.major %>>
+
+      <button>Update Information</button>
+    </form>
+  </dd>
+</dl>

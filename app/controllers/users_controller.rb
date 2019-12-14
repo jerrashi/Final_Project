@@ -38,6 +38,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def home
+    render({ :remplate => "users/homepage.html" })
+  end
+
   def index
     @users = User.all.order({ :created_at => :desc })
 
@@ -52,9 +56,8 @@ class UsersController < ApplicationController
     end
   end
 
-  def show
-    the_username = params.fetch(:the_username)
-    @user = User.where({ :username => the_username }).at(0)
+  def profile
+    @user = User.where({ :id => session[:user_id] }).at(0)
 
     respond_to do |format|
       format.json do
@@ -62,7 +65,7 @@ class UsersController < ApplicationController
       end
 
       format.html do
-        render({ :template => "users/show.html.erb" })
+        render({ :template => "users/profile.html.erb" })
       end
     end
   end
@@ -106,13 +109,9 @@ class UsersController < ApplicationController
   end
 
   def update
-    the_id = params.fetch(:the_user_id)
-    user = User.where({ :id => the_id }).at(0)
-
+    user = @current_user
 
     user.username = params.fetch(:input_username, user.username)
-    # user.password = params.fetch(:input_password)
-    # user.password_confirmation = params.fetch(:input_password_confirmation)
     user.date_of_birth = params.fetch(:input_dob, user.date_of_birth)
     user.ethnicity = params.fetch(:input_ethnicity, user.ethnicity)
     user.first_name = params.fetch(:input_first_name, user.first_name)
@@ -131,17 +130,18 @@ class UsersController < ApplicationController
       end
 
       format.html do
-        redirect_to("/users/#{user.username}")
+        redirect_to("/users/#{user.id}")
       end
     end
   end
 
   def destroy
-    username = params.fetch(:the_username)
-    user = User.where({ :username => username }).at(0)
+    user = @current_user
 
     user.destroy
 
     render({ :json => user.as_json })
+
+    redirect_to("/sign_up", { :alert => "Account successfully deleted."})  
   end
 end
