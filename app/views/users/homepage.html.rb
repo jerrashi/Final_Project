@@ -1,3 +1,0 @@
-<img src="<%= https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwjk1LrZkrbmAhVOZN8KHdoxDJcQjRx6BAgBEAQ&url=https%3A%2F%2Fwww.campuscatalyst.uchicago.edu%2Fapply-now-client&psig=AOvVaw2iyYzaIUwRqW4wJPZRoeWB&ust=1576445057363701 %>">
-<h1> Welcome to the beta version of the new campusCATALYST interview scoring system</h1>
-<dt> As this is a beta build, there may be glitches. Please report any glitches you find to jerryshi25@gmail.com</dt>

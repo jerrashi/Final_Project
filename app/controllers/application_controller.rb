@@ -11,4 +11,8 @@ class ApplicationController < ActionController::Base
       redirect_to("/sign_in", { :alert => "Please log in or sign up to proceed."})  
     end
   end
+  
+  def home
+    render({ :template => "users/homepage.html.erb" })
+  end
 end

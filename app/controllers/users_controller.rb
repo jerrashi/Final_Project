@@ -38,10 +38,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def home
-    render({ :remplate => "users/homepage.html" })
-  end
-
   def index
     @users = User.all.order({ :created_at => :desc })
 

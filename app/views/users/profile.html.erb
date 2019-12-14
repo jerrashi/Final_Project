@@ -1,115 +1,111 @@
-<h1><%= @user.first_name @user.last_name %></h1>
+<h1>
+<%= @user.first_name %> 
+<%= @user.last_name %>
+</h1>
+
 Email: <%= @user.username %>
 
 <dl>
   <% if @user.board%>
     <dt>Board Member</dt>
   <% end %>
+</d1>
 
-  <% if @user.applications != nil%>
-    <dt><a href="/users/<%= @user.id %>/applications">Applications</a> (<%= @user.applications.count%>)</dt>
-    <dd>Most Recent:
-      <table border="1">
-        <tr>
-          <th>
-            Date
-          </th>
+  <h3>Your Applications (<%= @user.applications.count%>):</h3>
+    <table border="1">
+      <tr>
+        <th>
+          Date
+        </th>
 
-          <th>
-            Project
-          </th>
+        <th>
+          Project
+        </th>
 
-          <th>
-            Result
-          </th>
+        <th>
+          Result
+        </th>
 
-          <th>
-          </th>
-        </tr>
-        <tr>
+        <th>
+        </th>
+      </tr>
 
-          <td>
-            <%= @user.most_recent_application.created_at %>
-          </td>
+      <% @user.applications.each do |application| %>
+      <tr>
+        <td>
+            <%= application.created_at %>
+        </td>
 
-          <td>
-            <%= @user.most_recent_application.project_label %>
-          </td>
+        <td>
+            <%= application.project_label %>
+        </td>
 
-          <td>
-            <%= @user.most_recent_application.status %>
-          </td>
+        <td>
+            <%= application.status %>
+        </td>
 
-          <td>
-            <a href="/users/<%= @user.id %>/applications/<%= @user.most_recent_application.id %>">
+        <td>
+            <a href="/users/<%= @user.id %>/applications/<%= application.id %>">
               Link
             </a>
-          </td>
-        </tr>
-      </table>
-    </dd>
+        </td>
+      </tr>
+    <%end%>
+    </table>
 
-  <%= else %>
-    <dt>Applications (<%= @user.applications.count%>)</dt>
-  <%= end %>
-  <dd>
+  <d1>
     <a href = "/users/<%= @user.id %>/insert_application_record"> Submit new application </a>
-  </dd>
+  </d1>
 
-  <dt><a href="/users/<%= @user.id %>/projects">Projects</a></dt>
-  <%= if @user.projects != nil%>
-    <dt><a href="/users/<%= @user.id %>/projects">Projects</a> (<%= @user.projects.count%>)</dt>
-    <dd>Most Recent:
-      <table border="1">
-        <tr>
-          <th>
-            Date
-          </th>
+  <h3>Your Projects(<%= @user.projects.count%>)</h3>
+    <table border="1">
+      <tr>
+        <th>
+          Date
+        </th>
 
-          <th>
-            Project
-          </th>
+        <th>
+          Project
+        </th>
 
-          <th>
-            Client
-          </th>
+        <th>
+          Client
+        </th>
 
-          <th>
-            Description
-          </th>
+        <th>
+          Description
+        </th>
 
-          <th>
-          </th>
-        </tr>
-        <tr>
+        <th>
+        </th>
+      </tr>
 
-          <td>
-            <%= @user.most_recent_project.created_at %>
-          </td>
+      <% @user.projects.each do |project| %>
+      <tr>
+        <td>
+            <%= project.created_at %>
+        </td>
 
-          <td>
-            <%= @user.most_recent_project.project_label %>
-          </td>
+        <td>
+            <%= project.project_label %>
+        </td>
 
-          <td>
-            <%= @user.most_recent_project.client %>
-          </td>
+        <td>
+            <%= project.client %>
+        </td>
 
-          <td>
-            <%= @user.most_recent_project.description %>
-          </td>
+        <td>
+            <%= project.description %>
+        </td>
 
-          <td>
-            <a href="/users/<%= @user.id %>/projects/<%= @user.most_recent_project.id %>">
+        <td>
+            <a href="/users/<%= @user.id %>/projects/<%= project.id %>">
               Link
             </a>
-          </td>
-        </tr>
-      </table>
-    </dd>
-  <%= else %>
-    <dt>Projects (<%= @user.projects.count%>)</dt>
-  <%= end %>
+        </td>
+      </tr>
+      <% end %>
+    </table>
 
   <dt>Update Profile Information</dt>
   <dd>
@@ -156,4 +152,3 @@ Email: <%= @user.username %>
       <button>Update Information</button>
     </form>
   </dd>
-</dl>
