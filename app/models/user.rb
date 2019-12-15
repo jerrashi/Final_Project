@@ -42,7 +42,6 @@ class User < ApplicationRecord
     return Project.where({ :project_label => array_of_project_labels, :student_id => self.id})
   end
 
-
   def most_recent_project
     return self.projects.order({ :created_at => :desc }).at(0)
   end

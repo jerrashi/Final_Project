@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <img src="https://static1.squarespace.com/static/562bc677e4b036ebb5379c95/t/562bcaaee4b057e30c6834fe/1576156770373/?format=1500w">
+  <h1> Welcome to the beta version of the new campusCATALYST interview scoring system</h1>
+    <dt> As this is a beta build, there may be glitches. Please report any glitches you find to jerryshi25@gmail.com</dt>
+
+  <% if @current_user.most_recent_application != nil or @current_user.most_recent_project != nil%>
+    <h2> Quick Links </h2>
+  <% end%>
+      <% if @current_user.most_recent_application != nil%>
+        <a href = "/applications/<%= @current_user.most_recent_application.id%>">Your most recent application</a>
+      <% end%>
+
+      <% if @current_user.most_recent_project != nil%>
+        <a href = "/projects/<%= @current_user.most_recent_project.id%>">Your most recent project</a>
+      <% end%>
+</html>

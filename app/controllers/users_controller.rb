@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class UsersController < BaseController
   skip_before_action(:force_sign_in, {:only => [:registration_form, :create, :sign_in, :sign_up_form, :add_cookie]})
   
   def sign_up_form

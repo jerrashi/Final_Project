@@ -1,0 +1,78 @@
+<h1>List of Applications</h1>
+
+<hr>
+
+<table border="1">
+  <tr>
+    <th>
+      Project
+    </th>
+
+    <th>
+      Applicant
+    </th>
+
+    <th>
+      Major
+    </th>
+
+    <th>
+      Case Average
+    </th>
+    
+    <th>
+      Behavioral Average
+    </th>
+
+    <th>
+      Total Average
+    </th>
+
+    <th>
+      Status
+    </th>
+
+    <th>
+    </th>
+
+  </tr>
+  <% @apps.each do |app| %>
+  <tr>
+    <td>
+      <a href = "/projects/<%= app.project_label%>">
+        <%= app.project_label %>
+      </a>
+    </td>
+
+    <td>
+      <a href = "/users/<%= app.student.id %>">
+        <%= app.first_name %> <%= app.last_name %>
+      </a>
+    </td>
+
+    <td>
+      <%= app.student.major %>
+    </td>
+
+    <td>
+      <%= app.case_average %>
+    </td>
+
+    <td>
+      <%= app.behavioral_average %>
+    </td>
+
+    <td>
+      <%= app.total_score %>
+    </td>
+
+    <td>
+      <%= app.status %>
+    </td>
+
+    <td>
+      <a href="/applications/<%= app.id %>">Details</a>
+    </td>
+  </tr>
+  <% end %>
+</table>

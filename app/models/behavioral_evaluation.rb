@@ -21,4 +21,7 @@
 #
 
 class BehavioralEvaluation < ApplicationRecord
+  # remove total_score, evaluator names, student names 
+  # and replace with method
+  # add application id
 end

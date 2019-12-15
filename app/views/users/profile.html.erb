@@ -45,7 +45,7 @@ Email: <%= @user.username %>
         </td>
 
         <td>
-            <a href="/users/<%= @user.id %>/applications/<%= application.id %>">
+            <a href="/applications/<%= application.id %>">
               Link
             </a>
         </td>
@@ -150,7 +150,7 @@ Email: <%= @user.username %>
 
       <div>
         <label for="graduation_date">Expected Graduation Date: </label>
-        <input id="graduation_date" type="month" name="input_graduation_date" value=<%= @user.graduation_date %>>
+        <input id="graduation_date" type="date" name="input_graduation_date" value=<%= @user.graduation_date %>>
       </div>
 
       <div>

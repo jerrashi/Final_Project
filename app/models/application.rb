@@ -13,15 +13,20 @@
 #
 
 class Application < ApplicationRecord
-  def behavioral_array
-    return Behavioral_evaluation.where({:student_id => self.student_id})
+
+  def user
+    return User.where({:id => self.student_id}).at(0)
   end
 
-  def case_array
-    return Case_evaluation.where({:student_id => self.student_id})
+  def first_name
+    user = self.user
+    return user.first_name
   end
 
-  # feedback implemented in html, remaining instance methods should only be accesible by board members
+  def last_name
+    user = self.user
+    return user.last_name
+  end
 
   def behavioral_average
     # code from stackoverflow at https://stackoverflow.com/questions/1341271/how-do-i-create-an-average-from-a-ruby-array
@@ -34,4 +39,19 @@ class Application < ApplicationRecord
     arr = self.case_array
     return arr.average(:total_score)
   end
+
+  def total_score
+    return self.case_average + self.behavioral_average
+  end
+
+  def behavioral_array
+    return Behavioral_evaluation.where({:student_id => self.student_id})
+  end
+
+  def case_array
+    return Case_evaluation.where({:student_id => self.student_id})
+  end
+
+  # feedback & status acceptance in html
+  # don't forget to delete case_scores and interview_scores
 end
