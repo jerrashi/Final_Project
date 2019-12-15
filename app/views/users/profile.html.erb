@@ -54,7 +54,9 @@ Email: <%= @user.username %>
     </table>
 
   <d1>
+    <% if @current_user.id == @user.id %>
     <a href = "/users/<%= @user.id %>/insert_application_record"> Submit new application </a>
+    <% end %>
   </d1>
 
   <h3>Your Projects(<%= @user.projects.count%>)</h3>
@@ -107,48 +109,84 @@ Email: <%= @user.username %>
       <% end %>
     </table>
 
-  <dt>Update Profile Information</dt>
+  <% if @current_user.id == @user.id %>
+  <h3>Update Profile Information</h3>
   <dd>
-    <form action="/update_user/<%= @user.id %>" method="post">
-      <label for="browser_username">Email: </label>
-      <input id="browser_username" type="email" name="input_username" placeholder="Update your email address...">
+    <form action="/users/<%= @user.id %>/update_user_record" method="post">
+      <div>
+        <label for="username">Email: </label>
+        <input id="username" type="email" name="input_username" placeholder="Update your email address..." value=<%= @user.username %>>
+      </div>
+      
+      <div>
+        <label for="first_name">First name: </label>
+        <input id="first_name" type="text" name="input_first_name" value=<%= @user.first_name %>>
+      </div>
 
-      <label for="browser_first_name">First name: </label>
-      <input id="browser_first_name" type="text" name="input_first_name" value=<%= @user.first_name %>>
+      <div>
+        <label for="last_name">Last name: </label>
+        <input id="last_name" type="text" name="input_last_name" value=<%= @user.last_name %>>
+      </div>
 
-      <label for="browser_last_name">Last name: </label>
-      <input id="browser_last_name" type="text" name="input_last_name" value=<%= @user.last_name %>>
+      <div>
+        <label for="board">Board?</label>
+        <input id="board" type="checkbox" name="input_board" <%= " checked" if @user.board %>>
+      </div>
 
-      <label for="browser_board">Board?</label>
-      <input id="browser_board" type="checkbox" name="input_board" <%= " checked" if @user.board %>>
+      <div>
+        <label for="dob">Date of Birth: </label>
+        <input id="dob" type="date" name="input_dob" value=<%= @user.date_of_birth %>>
+      </div>
 
-      <label for="browser_dob">Date of Birth: </label>
-      <input id="browser_dob" type="date" name="input_dob"  value=<%= @user.date_of_birth %>>
+      <div>
+        <label for="ethnicity">Ethnicity: </label>
+        <input id="ethnicity" type="text" name="input_ethnicity" value=<%= @user.ethnicity %>>
+      </div>
 
-      <label for="browser_ethnicity">Ethnicity: </label>
-      <input id="browser_ethnicity" type="text" name="input_ethnicity"  value=<%= @user.ethnicity %>>
+      <div>
+        <label for="gender">Gender: </label>
+        <input id="gender" type="text" name="input_gender" value=<%= @user.gender %>>
+      </div>
 
-      <label for="browser_gender">Gender: </label>
-      <input id="browser_gender" type="text" name="input_gender"  value=<%= @user.gender %>>
+      <div>
+        <label for="graduation_date">Expected Graduation Date: </label>
+        <input id="graduation_date" type="month" name="input_graduation_date" value=<%= @user.graduation_date %>>
+      </div>
 
-      <label for="browser_graduation_date">Expected Graduation Date: </label>
-      <input id="browser_graduation_date" type="month" name="input_graduation_date"  value=<%= @user.graduation_date %>>
+      <div>
+        <label for="linkedin">Linkedin: </label>
+        <input id="linkedin" type="text" name="input_linkedin" value=<%= @user.linkedin %>>
+      </div>
 
-      <label for="browser_linkedin">Linkedin: </label>
-      <input id="browser_linkedin" type="text" name="input_linkedin"  value=<%= @user.linkedin %>>
+      <div>
+        <label for="major">Major: </label>
+        <input id="major" type="text" name="input_major" value=<%= @user.major %>>
+      </div>
 
-      <label for="browser_major">Major: </label>
-      <input id="browser_major" type="text" name="input_major"  value=<%= @user.major %>>
+      <div>
+        <label for="subscriber">Subscriber: </label>
+        <input id="subscriber" type="checkbox" name="input_subscriber" <%= " checked" if @user.subscriber %>>
+      </div>
 
-      <label for="browser_subscriber">Subscriber: </label>
-      <input id="browser_subscriber" type="checkbox" name="input_subscriber"  <%= " checked" if @user.subscriber %>>
+      <div>
+        <label for="password">New Password: </label>
+        <input id="password" type="password" name="input_password">
+      </div>
 
-      # <label for="browser_password">New Password: </label>
-      # <input id="browser_password" type="password" name="input_password">
+      <div>
+        <label for="major">Confirm New Password: </label>
+        <input id="major" type="text" name="input_password_confirmation">
+      </div>
 
-      # <label for="browser_major">Confirm New Password: </label>
-      # <input id="browser_major" type="text" name="input_major"  value=<%= @user.major %>>
+      <div>
+        <button>Update Information</button>
+      </div>
 
-      <button>Update Information</button>
     </form>
   </dd>
+
+  <h3> Delete Account </h3>
+  <dd>
+    <button>Delete Account</button>
+  </dd>
+  <% end %>

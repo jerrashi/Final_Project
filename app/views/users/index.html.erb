@@ -1,0 +1,95 @@
+<h1>List of users</h1>
+
+<hr>
+
+<table border="1">
+  <tr>
+    <th>
+      Email
+    </th>
+
+    <th>
+      First Name
+    </th>
+
+    <th>
+      Last Name
+    </th>
+    
+    <th>
+      Board
+    </th>
+
+    <th>
+      Date of Birth
+    </th>
+
+    <th>
+      Ethnicity
+    </th>
+
+    <th>
+      Gender
+    </th>
+
+    <th>
+      Graduation Date
+    </th>
+
+    <th>
+      Linkedin
+    </th>
+
+    <th>
+      Major
+    </th>
+
+    <th>
+      Subscriber
+    </th>
+
+    <th>
+    </th>
+
+  </tr>
+  <% @users.each do |user| %>
+  <tr>
+    <td>
+      <%= user.username %>
+    </td>
+    <td>
+      <%= user.first_name %>
+    </td>
+    <td>
+      <%= user.last_name %>
+    </td>
+    <td>
+      <%= user.board %>
+    </td>
+    <td>
+      <%= user.date_of_birth %>
+    </td>
+    <td>
+      <%= user.ethnicity %>
+    </td>
+    <td>
+      <%= user.gender %>
+    </td>
+    <td>
+      <%= user.graduation_date %>
+    </td>
+    <td>
+      <%= user.linkedin %>
+    </td>
+    <td>
+      <%= user.major %>
+    </td>
+    <td>
+      <%= user.subscriber %>
+    </td>
+    <td>
+      <a href="/users/<%= user.id %>">Show details</a>
+    </td>
+  </tr>
+  <% end %>
+</table>

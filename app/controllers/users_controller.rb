@@ -53,7 +53,7 @@ class UsersController < ApplicationController
   end
 
   def profile
-    @user = User.where({ :id => session[:user_id] }).at(0)
+    @user = User.where({ :id => params.fetch(:the_id) }).at(0)
 
     respond_to do |format|
       format.json do
@@ -117,6 +117,8 @@ class UsersController < ApplicationController
     user.linkedin = params.fetch(:input_linkedin, user.linkedin)
     user.major = params.fetch(:input_major, user.major)
     user.subscriber = params.fetch(:input_subscriber, user.subscriber)
+    user.password = params.fetch(:input_password)
+    user.password_confirmation = params.fetch(:input_password_confirmation)
 
     user.save
 
