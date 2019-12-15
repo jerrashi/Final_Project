@@ -55,7 +55,7 @@ Email: <%= @user.username %>
 
   <d1>
     <% if @current_user.id == @user.id %>
-    <a href = "/users/<%= @user.id %>/insert_application_record"> Submit new application </a>
+    <a href = "/insert_application_record"> Submit new application </a>
     <% end %>
   </d1>
 
@@ -186,6 +186,7 @@ Email: <%= @user.username %>
   </dd>
 
   <h3> Delete Account </h3>
+  <form action = /users/<%= @user.id %>/delete_user_record" method ="get">
   <dd>
     <button>Delete Account</button>
   </dd>

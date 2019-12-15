@@ -28,17 +28,18 @@ Rails.application.routes.draw do
 # APPLICATION ROUTES
 
   # create
-  match("/insert_application_record", {:controller => "app", :action => "create", :via => "post"})
+  match("/insert_application_record", {:controller => "application", :action => "create", :via => "post"})
+  get "/insert_application_record" => "application#create"
 
   # read
-  match("/applications", {:controller => "app", :action => "index", :via => "post"})
-  match("/applications/:app_id", {:controller => "app", :action => "profile", :via => "get"})
+  match("/applications", {:controller => "application", :action => "index", :via => "post"})
+  match("/applications/:app_id", {:controller => "application", :action => "profile", :via => "get"})
 
   # update
-  match("/applications/:app_id/update_app_record", {:controller => "app", :action => "update", :via => "post"})
+  match("/applications/:app_id/update_app_record", {:controller => "application", :action => "update", :via => "post"})
 
   # delete
-  match("/applications/:app_id/delete_app_record", {:controller => "app", :action => "delete", :via => "get"})
+  match("/applications/:app_id/delete_app_record", {:controller => "application", :action => "delete", :via => "get"})
 
   # project routes (BY PROJECT_LABEL)
 

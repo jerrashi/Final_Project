@@ -1,30 +1,39 @@
 <h1>
 <%= @app.first_name%>
-<%= @app.last_name%>/'s Application for <%= @app.project_label%>
+<%= @app.last_name%>#'s Application for <%= @app.project_label%>
 </h1>
 
 <h2> Status: <%@app.status%> </h2>
-<% if @app.status == Accepted %>
-  <form action="/applications/<%= @app.id%>/update_app_record" method="post">
-  <label for="applicant_response">Accept Offer?</label>
-    <select name="input_status" id = "applicant_response">
-        <option value="">--Please choose an option--</option>
-        <option value="enroll">Enroll</option>
-        <option value="defer">Defer</option>
-        <option value="Decline">Decline</option>
-    </select>
-  </form>
+<% if session[:user_id] == @app.student_id%>
+  <% if @app.status == "Accepted"%>
+    <form action="/applications/<%= @app.id%>/update_app_record" method="post">
+    <label for="applicant_response">Accept Offer?</label>
+      <select name="input_status" id = "applicant_response">
+          <option value="">--Please choose an option--</option>
+          <option value="Enroll">Enroll</option>
+          <option value="Defer">Defer</option>
+          <option value="Decline">Decline</option>
+      </select>
+    </form>
+  <% end%>
 <% end%>
 
 <% if @current_user.board == TRUE %>
   <form action="/applications/<%= @app.id%>/update_app_record" method="post">
-  <label for="applicant_response">Edit:</label>
+  <label form="applicant_response">Edit:</label>
     <select name="input_status" id = "applicant_response">
         <option value="">--Please choose an option--</option>
         <option value="Accepted">Accepted</option>
         <option value="Waitlisted">Waitlisted</option>
         <option value="Rejected">Rejected</option>
     </select>
+
+    <label for="project-select">Project: </label>
+      <select name="input_project_label" id="project-select">
+        <option value="">--Please choose an option--</option>
+        <option value="Fall 2019 Class">Fall 2019 Class</option>
+        <option value="Winter 2020 Class">Winter 2020 Class</option>
+      </select>
   </form>
 
   <% if @app.behavioral_array != nil%>
@@ -32,7 +41,7 @@
     <table border="1">
       <tr>
         <th>
-          Commenter
+          Evaluator
         </th>
 
         <th>
@@ -69,15 +78,15 @@
           </td>
 
           <td>
-            <%= interview.consulting_score %>
+            <%= interview.consulting_score%>
           </td>
 
           <td>
-            <%= interview.diversity_score %>
+            <%= interview.diversity_score%>
           </td>
 
           <td>
-            <%= interview.interest_score %>
+            <%= interview.interest_score%>
           </td>
 
           <td>
@@ -85,11 +94,11 @@
           <td>
 
           <td>
-            <%= interview.total_score %>
+            <%= interview.total_score%>
           </td>
 
           <td>
-            <%= interview.comments %>
+            <%= interview.comments%>
           </td>
         </tr>
       <%end%>
@@ -101,7 +110,7 @@
     <table border="1">
       <tr>
         <th>
-          Commenter
+          Evaluator
         </th>
 
         <th>
@@ -204,4 +213,5 @@
     <dd>
       <button>Delete Application</button>
     </dd>
+  </form>
   <% end %>

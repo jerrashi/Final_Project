@@ -33,79 +33,57 @@ class ApplicationController < BaseController
   end
 
   def create
-    user = User.new
+    application = Application.new
 
-    user.username = params.fetch(:input_username, nil)
-    user.password = params.fetch(:input_password)
-    user.password_confirmation = params.fetch(:input_password_confirmation)
-    user.board = params.fetch(:input_board, FALSE)
-    user.date_of_birth = params.fetch(:input_dob, nil)
-    user.ethnicity = params.fetch(:input_ethnicity, nil)
-    user.first_name = params.fetch(:input_first_name, nil)
-    user.gender = params.fetch(:input_gender, nil)
-    user.graduation_date = params.fetch(:input_graduation_date, nil)
-    user.last_name = params.fetch(:input_last_name, nil)
-    user.linkedin = params.fetch(:input_linkedin, nil)
-    user.major = params.fetch(:input_major, nil)
-    user.subscriber = params.fetch(:input_subscriber, FALSE)
+    application.student_id = session[:user_id]
+    application.project_label = params.fetch(:input_project_label, nil)
 
-    save_status = user.save
+    save_status = application.save
     
     if save_status == true
 
-      session[:user_id] = user.id
-
       respond_to do |format|
         format.json do
-          render({ :json => @user.as_json })
+          render({ :json => application.as_json })
         end
 
         format.html do
-          redirect_to("/users/#{user.id}")
+          redirect_to("/applications/#{application.id}", { :notice => "Application successfully submitted."})
         end
       end
     
+    
     else
-      redirect_to("/sign_up", { :alert => "Something went wrong. Please try again."})
+      redirect_to("/users/#{session[:user_id]}", { :alert => "Something went wrong. Please try again."})
     end
   end
 
   def update
-    user = @current_user
+    app = Application.where({ :id => params.fetch(:app_id) }).at(0)
 
-    user.username = params.fetch(:input_username, user.username)
-    user.date_of_birth = params.fetch(:input_dob, user.date_of_birth)
-    user.ethnicity = params.fetch(:input_ethnicity, user.ethnicity)
-    user.first_name = params.fetch(:input_first_name, user.first_name)
-    user.gender = params.fetch(:input_gender, user.gender)
-    user.graduation_date = params.fetch(:input_graduation_date, user.graduation_date)
-    user.last_name = params.fetch(:input_last_name, user.last_name)
-    user.linkedin = params.fetch(:input_linkedin, user.linkedin)
-    user.major = params.fetch(:input_major, user.major)
-    user.subscriber = params.fetch(:input_subscriber, user.subscriber)
-    user.password = params.fetch(:input_password)
-    user.password_confirmation = params.fetch(:input_password_confirmation)
+    app.project_label = params.fetch(:input_project_label, app.project_label)
+    app.status = params.fetch(:input_status, app.status)
 
-    user.save
+    app.save
 
     respond_to do |format|
       format.json do
-        render({ :json => user.as_json })
+        render({ :json => app.as_json })
       end
 
       format.html do
-        redirect_to("/users/#{user.id}")
+        redirect_to("/applications/#{app.id}", { :alert => "Application successfully deleted."})
       end
     end
   end
 
   def destroy
-    user = @current_user
+    app = Application.where({ :id => params.fetch(:app_id) }).at(0)
 
-    user.destroy
+    app.destroy
 
-    render({ :json => user.as_json })
+    render({ :json => app.as_json })
 
-    redirect_to("/sign_up", { :alert => "Account successfully deleted."})  
+    redirect_to("/applications/#{app.id}", { :alert => "Application successfully deleted."})  
   end
 end

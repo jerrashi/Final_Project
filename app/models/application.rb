@@ -52,6 +52,5 @@ class Application < ApplicationRecord
     return Case_evaluation.where({:student_id => self.student_id})
   end
 
-  # feedback & status acceptance in html
   # don't forget to delete case_scores and interview_scores
 end
