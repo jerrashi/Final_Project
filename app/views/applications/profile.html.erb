@@ -1,26 +1,27 @@
 <h1>
 <%= @app.first_name%>
-<%= @app.last_name%>#'s Application for <%= @app.project_label%>
+<%= @app.last_name%>'s Application for <%= @app.project_label%>
 </h1>
 
-<h2> Status: <%@app.status%> </h2>
-<% if session[:user_id] == @app.student_id%>
-  <% if @app.status == "Accepted"%>
-    <form action="/applications/<%= @app.id%>/update_app_record" method="post">
-    <label for="applicant_response">Accept Offer?</label>
-      <select name="input_status" id = "applicant_response">
-          <option value="">--Please choose an option--</option>
-          <option value="Enroll">Enroll</option>
-          <option value="Defer">Defer</option>
-          <option value="Decline">Decline</option>
-      </select>
-    </form>
-  <% end%>
+<h2> Status: <%=@app.status%> </h2>
+
+<% if @app.status == "Accepted"%>
+  <form action="/applications/<%= @app.id%>/update_app_record" method="post">
+  <label for="applicant_response">Accept Offer?</label>
+    <select name="input_status" id = "applicant_response">
+        <option value="">--Please choose an option--</option>
+        <option value="Enrolled">Enroll</option>
+        <option value="Deferred">Defer</option>
+        <option value="Declined">Decline</option>
+    </select>
+    <button> Update </button>
+  </form>
 <% end%>
 
-<% if @current_user.board == TRUE %>
+<h2> Edit </h2>
+<% if @current_user.board == TRUE%>
   <form action="/applications/<%= @app.id%>/update_app_record" method="post">
-  <label form="applicant_response">Edit:</label>
+  <label for="applicant_response">Status:</label>
     <select name="input_status" id = "applicant_response">
         <option value="">--Please choose an option--</option>
         <option value="Accepted">Accepted</option>
@@ -28,14 +29,34 @@
         <option value="Rejected">Rejected</option>
     </select>
 
-    <label for="project-select">Project: </label>
-      <select name="input_project_label" id="project-select">
-        <option value="">--Please choose an option--</option>
-        <option value="Fall 2019 Class">Fall 2019 Class</option>
-        <option value="Winter 2020 Class">Winter 2020 Class</option>
-      </select>
+  <label for="project-select">Project: </label>
+    <select name="input_project_label" id="project-select">
+      <option value="">--Please choose an option--</option>
+      <option value="Fall 2019 Class">Fall 2019 Class</option>
+      <option value="Winter 2020 Class">Winter 2020 Class</option>
+    </select>
+  <button> Update </button>
   </form>
 
+<% elsif @current_user.id == @app.student_id%>
+  <form action="/applications/<%= @app.id%>/update_app_record" method="post">
+  <label for="project-select">Project: </label>
+    <select name="input_project_label" id="project-select">
+      <option value="">--Please choose an option--</option>
+      <option value="Fall 2019 Class">Fall 2019 Class</option>
+      <option value="Winter 2020 Class">Winter 2020 Class</option>
+    </select>
+  <button> Update </button>
+  </form>
+<% end%>
+  
+<form action="/applications/<%= @app.id %>/delete_app_record" method="get">
+  <d1>
+    <button>Delete Application</button>
+  </d1>
+</form>
+
+<% if @current_user.board == TRUE %>
   <% if @app.behavioral_array != nil%>
     <h3> Behavioral Evaluations Details </h3>
     <table border="1">
@@ -72,7 +93,7 @@
       <% @app.behavioral_array.each do |interview| %>
         <tr>
           <td>
-            <a href="users/<%= interview.evaluator_id">
+            <a href="users/<%= interview.evaluator_id%>">
               <%= interview.evaluator_first_name%> <%= interview.evaluator_last_name%>
             </a>
           </td>
@@ -103,8 +124,10 @@
         </tr>
       <%end%>
     </table>
-  <% end%>
+  <%end%>
+<%end%>
 
+<% if @current_user.board == TRUE %>
   <% if @app.case_array != nil%>
     <h3> Case Evaluations Details </h3>
     <table border="1">
@@ -134,32 +157,32 @@
         </th>
       </tr>
 
-      <% @app.case_array.each do |case| %>
+      <% @app.case_array.each do |the_case| %>
         <tr>
           <td>
-            <a href="users/<%= case.evaluator_id">
-              <%= case.evaluator_first_name%> <%=case.evaluator_last_name%>
+            <a href="users/<%= the_case.evaluator_id%>">
+              <%= the_case.evaluator_first_name%> <%=the_case.evaluator_last_name%>
             </a>
           </td>
 
           <td>
-            <%= case.contribution_score %>
+            <%= the_case.contribution_score %>
           </td>
 
           <td>
-            <%= case.brainstorming_score %>
+            <%= the_case.brainstorming_score %>
           </td>
 
           <td>
-            <%= case.insights_score %>
+            <%= the_case.insights_score %>
           </td>
 
           <td>
-            <%= case.group_score%>
+            <%= the_case.group_score%>
           <td>
 
           <td>
-            <%= case.comments %>
+            <%= the_case.comments %>
           </td>
         </tr>
       <%end%>
@@ -167,51 +190,44 @@
   <% end%>
 <% end%>
 
-  <d1>
-    <% if @current_user.id == @app.student_id and @app.status == Rejected%>
-      <table border="1">
-        <tr>
-          <th>
-            Feedback
-          </th>
-          <th>
-            Type
-          </th>
-        </tr>
+<d1>
+  <% if @current_user.id == @app.student_id && @app.status == "Rejected"%>
+    <table border="1">
+      <tr>
+        <th>
+          Feedback
+        </th>
+        <th>
+          Type
+        </th>
+      </tr>
 
-        <% if @app.behavioral_array != nil%>
-          <% @app.behavioral_array.each do |app|%>
-            <tr>
-              <td>
-                <%= app.feedback%>
-              </td>
+      <% if @app.behavioral_array != nil%>
+        <% @app.behavioral_array.each do |app|%>
+          <tr>
+            <td>
+              <%= app.feedback%>
+            </td>
 
-              <td>
-                Behavioral
-              </td>
-            </tr>
-          <% end%>
-        <%end%>
-
-        <% if @app.case_array != nil%>
-          <% @app.case_array.each do |app|%>
-            <tr>
-              <td>
-                <%= app.feedback%>
-              </td>
-
-              <td>
-                Case
-              </td>
-            </tr>
-          <% end%>
+            <td>
+              Behavioral
+            </td>
+          </tr>
         <% end%>
-      </table>
-    <% end%>
+      <%end%>
 
-  <form action="/applications/<%= @app.id %>/delete_app_record" method="get">
-    <dd>
-      <button>Delete Application</button>
-    </dd>
-  </form>
-  <% end %>
+      <% if @app.case_array != nil%>
+        <% @app.case_array.each do |app|%>
+          <tr>
+            <td>
+              <%= app.feedback%>
+            </td>
+
+            <td>
+              Case
+            </td>
+          </tr>
+        <% end%>
+      <% end%>
+    </table>
+  <% end%>

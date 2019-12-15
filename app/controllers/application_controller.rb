@@ -72,17 +72,15 @@ class ApplicationController < BaseController
       end
 
       format.html do
-        redirect_to("/applications/#{app.id}", { :alert => "Application successfully deleted."})
+        redirect_to("/applications/#{app.id}", { :notice => "Application successfully updated."})
       end
     end
   end
 
-  def destroy
+  def delete
     app = Application.where({ :id => params.fetch(:app_id) }).at(0)
 
     app.destroy
-
-    render({ :json => app.as_json })
 
     redirect_to("/applications/#{app.id}", { :alert => "Application successfully deleted."})  
   end

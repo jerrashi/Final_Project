@@ -32,7 +32,7 @@ Rails.application.routes.draw do
   get "/insert_application_record" => "application#create"
 
   # read
-  match("/applications", {:controller => "application", :action => "index", :via => "post"})
+  match("/applications", {:controller => "application", :action => "index", :via => "get"})
   match("/applications/:app_id", {:controller => "application", :action => "profile", :via => "get"})
 
   # update
@@ -41,13 +41,7 @@ Rails.application.routes.draw do
   # delete
   match("/applications/:app_id/delete_app_record", {:controller => "application", :action => "delete", :via => "get"})
 
-  # project routes (BY PROJECT_LABEL)
-
-  # application routes (BY ID)
-
   # EVALUATION ROUTES
-
-  # "/users/<%= @user.id %>/insert_application_record"
 
   # ======= Add Your Routes Above These =============
   devise_for :admin_users, ActiveAdmin::Devise.config

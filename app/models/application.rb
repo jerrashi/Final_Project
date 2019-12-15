@@ -14,18 +14,18 @@
 
 class Application < ApplicationRecord
 
-  def user
+  def student
     return User.where({:id => self.student_id}).at(0)
   end
 
   def first_name
-    user = self.user
-    return user.first_name
+    student = self.student
+    return student.first_name
   end
 
   def last_name
-    user = self.user
-    return user.last_name
+    student = self.student
+    return student.last_name
   end
 
   def behavioral_average
@@ -41,15 +41,19 @@ class Application < ApplicationRecord
   end
 
   def total_score
-    return self.case_average + self.behavioral_average
+    if self.case_average != nil and self.behavioral_average != nil
+      return self.case_average + self.behavioral_average
+    else
+      return 0
+    end
   end
 
   def behavioral_array
-    return Behavioral_evaluation.where({:student_id => self.student_id})
+    return BehavioralEvaluation.where({:student_id => self.student_id})
   end
 
   def case_array
-    return Case_evaluation.where({:student_id => self.student_id})
+    return CaseEvaluation.where({:student_id => self.student_id})
   end
 
   # don't forget to delete case_scores and interview_scores
