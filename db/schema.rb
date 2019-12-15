@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_14_180053) do
+ActiveRecord::Schema.define(version: 2019_12_15_191123) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -42,24 +42,17 @@ ActiveRecord::Schema.define(version: 2019_12_14_180053) do
     t.integer "student_id"
     t.string "project_label"
     t.string "status"
-    t.decimal "interview_scores"
-    t.decimal "case_scores"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "behavioral_evaluations", force: :cascade do |t|
     t.integer "student_id"
-    t.string "student_first_name"
-    t.string "student_last_name"
     t.integer "evaluator_id"
-    t.string "evaluator_first_name"
     t.integer "interest_score"
     t.integer "teamwork_score"
     t.integer "consulting_score"
     t.integer "diversity_score"
-    t.integer "total_score"
-    t.string "evaluator_last_name"
     t.text "comments"
     t.text "feedback"
     t.datetime "created_at", precision: 6, null: false
@@ -68,12 +61,7 @@ ActiveRecord::Schema.define(version: 2019_12_14_180053) do
 
   create_table "case_evaluations", force: :cascade do |t|
     t.integer "student_id"
-    t.string "student_first_name"
-    t.string "student_last_name"
     t.integer "evaluator_id"
-    t.string "evaluator_first_name"
-    t.integer "total_score"
-    t.string "evaluator_last_name"
     t.integer "contribution_score"
     t.integer "brainstorming_score"
     t.integer "insights_score"
@@ -90,10 +78,10 @@ ActiveRecord::Schema.define(version: 2019_12_14_180053) do
     t.string "client"
     t.string "student_first_name"
     t.string "student_last_name"
-    t.string "student_email"
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "application_id"
   end
 
   create_table "users", force: :cascade do |t|
