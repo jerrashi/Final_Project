@@ -27,15 +27,29 @@ class Application < ApplicationRecord
   end
 
   def behavioral_average
-    # code from stackoverflow at https://stackoverflow.com/questions/1341271/how-do-i-create-an-average-from-a-ruby-array
-    # and activerecord documentation at https://api.rubyonrails.org/classes/ActiveRecord/Calculations.html#method-i-calculate
     arr = self.behavioral_array
-    return arr.average(:total_score)
+    sum = 0
+    arr.each do |the_behavioral|
+      sum = sum + the_behavioral.total_score
+    end
+      if arr.count == 0
+        return 0
+      else
+        return sum/arr.count
+      end
   end
 
   def case_average
     arr = self.case_array
-    return arr.average(:total_score)
+    sum = 0
+    arr.each do |the_case|
+      sum = sum + the_case.total_score
+    end
+      if arr.count == 0
+        return 0
+      else
+        return sum/arr.count
+      end
   end
 
   def total_score
@@ -53,5 +67,4 @@ class Application < ApplicationRecord
   def case_array
     return CaseEvaluation.where({:student_id => self.student_id})
   end
-  
 end

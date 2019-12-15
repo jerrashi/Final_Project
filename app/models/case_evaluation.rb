@@ -11,6 +11,7 @@
 #  insights_score      :integer
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
+#  application_id      :integer
 #  evaluator_id        :integer
 #  student_id          :integer
 #
@@ -18,7 +19,8 @@
 class CaseEvaluation < ApplicationRecord
   def total_score
     sum = self.brainstorming_score + self.contribution_score + self.group_score + self.insights_score
-  return sum
+    return sum
+  end
 
   def student
     return User.where({ :id => self.student_id}).at(0)

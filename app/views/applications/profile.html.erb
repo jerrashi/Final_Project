@@ -88,6 +88,9 @@
         <th>
           Comments
         </th>
+
+        <th>
+        </th>
       </tr>
 
       <% @app.behavioral_array.each do |interview| %>
@@ -121,11 +124,57 @@
           <td>
             <%= interview.comments%>
           </td>
+
+          <td>
+            <% if session[:user_id] == interview.evaluator_id%>
+              <a href="/applications/<%= @app.id%>/behavioral/<%= interview.id%>">
+                Edit
+              </a>
+            <% end%>
+          </td>
         </tr>
       <%end%>
     </table>
   <%end%>
+
+<h3> Submit New Interview Evaluation </h3>
+  <form action="/applications/<%= @app.id%>/insert_behavioral" method="post">
+    <div>
+      <label for="consulting_score">Consulting Score: </label>
+      <input id="consulting_score" type="number" name="input_consulting_score">
+    </div>
+    
+    <div>
+      <label for="diversity_score">Diversity Score: </label>
+      <input id="diversity_score" type="number" name="input_diversity_score">
+    </div>
+
+    <div>
+      <label for="interest_score">Interest Score: </label>
+      <input id="interest_score" type="number" name="input_interest_score">
+    </div>
+
+    <div>
+      <label for="teamwork_score">Teamwork Score: </label>
+      <input id="teamwork_score" type="number" name="input_teamwork_score">
+    </div>
+
+    <div>
+      <label for="comments">Comments: </label>
+      <input id="comments" type="text" name="input_comments">
+    </div>
+
+    <div>
+      <label for="feedback">Feedback: (REMINDER: Applicants will see what you type here) </label>
+      <input id="feedback" type="text" name="input_feedback">
+    </div>
+
+    <button> Submit </button>
+  </form>
+
 <%end%>
+
+
 
 <% if @current_user.board == TRUE %>
   <% if @app.case_array != nil%>
@@ -154,6 +203,9 @@
 
         <th>
           Comments
+        </th>
+
+        <th>
         </th>
       </tr>
 
@@ -184,10 +236,53 @@
           <td>
             <%= the_case.comments %>
           </td>
+
+          <td>
+            <% if session[:user_id] == the_case.evaluator_id%>
+              <a href="/applications/<%= @app.id%>/behavioral/<%= interview.id%>">
+                Edit
+              </a>
+            <% end%>
+          </td>
         </tr>
       <%end%>
     </table>
   <% end%>
+  
+<h3> Submit New Case Evaluation </h3>
+  <form action="/applications/<%= @app.id%>/insert_behavioral" method="post">
+    <div>
+      <label for="brainstorming_score">Brainstorming Score: </label>
+      <input id="brainstorming_score" type="number" name="input_brainstorming_score">
+    </div>
+    
+    <div>
+      <label for="contribution_score">Contribution Score: </label>
+      <input id="contribution_score" type="number" name="input_contribution_score">
+    </div>
+
+    <div>
+      <label for="insights_score">Insights Score: </label>
+      <input id="insights_score" type="number" name="input_insights_score">
+    </div>
+
+    <div>
+      <label for="group_score">Group Score: </label>
+      <input id="group_score" type="number" name="input_group_score">
+    </div>
+
+    <div>
+      <label for="comments">Comments: </label>
+      <input id="comments" type="text" name="input_comments">
+    </div>
+
+    <div>
+      <label for="feedback">Feedback: (REMINDER: Applicants will see what you type here) </label>
+      <input id="feedback" type="text" name="input_feedback">
+    </div>
+    
+    <button> Submit </button>
+  </form>
 <% end%>
 
 <d1>

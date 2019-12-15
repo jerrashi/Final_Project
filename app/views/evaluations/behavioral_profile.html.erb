@@ -1,0 +1,41 @@
+<h3> Interview Evaluation for <%= @evaluation.student_first_name%> <%= @evaluation.student_last_name%> </h3>
+<h4> By <%= @evaluation.evaluator_first_name%> <%= @evaluation.evaluator_last_name%></h4>
+
+Edit Details
+  <form action="/applications/<%= params.fetch(:app_id)%>/behavioral/<%= @evaluation.id%>/update_evaluation" method="post">
+    <div>
+      <label for="consulting_score">Consulting Score: </label>
+      <input id="consulting_score" type="number" name="input_consulting_score" value=<%=@evaluation.consulting_score%>>
+    </div>
+    
+    <div>
+      <label for="diversity_score">Diversity Score: </label>
+      <input id="diversity_score" type="number" name="input_diversity_score" value=<%=@evaluation.diversity_score%>>
+    </div>
+
+    <div>
+      <label for="interest_score">Interest Score: </label>
+      <input id="interest_score" type="number" name="input_interest_score" value=<%=@evaluation.interest_score%>>
+    </div>
+
+    <div>
+      <label for="teamwork_score">Teamwork Score: </label>
+      <input id="teamwork_score" type="number" name="input_teamwork_score" value=<%=@evaluation.teamwork_score%>>
+    </div>
+
+    <div>
+      <label for="comments">Comments: </label>
+      <input id="comments" type="text" name="input_comments" value=<%=@evaluation.comments%>>
+    </div>
+
+    <div>
+      <label for="feedback">Feedback: (REMINDER: Applicants will see what you type here) </label>
+      <input id="feedback" type="text" name="input_feedback" value=<%=@evaluation.feedback%>>
+    </div>
+    
+    <button> Update </button>
+  </form>
+
+  <form action = "/applications/<%= params.fetch(:app_id)%>/behavioral/<%= @evaluation.id%>/delete_evaluation" method = "get">
+    <button> Delete </button>
+  </form>

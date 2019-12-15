@@ -11,6 +11,7 @@
 #  teamwork_score   :integer
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  application_id   :integer
 #  evaluator_id     :integer
 #  student_id       :integer
 #

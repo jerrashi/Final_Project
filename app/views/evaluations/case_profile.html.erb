@@ -1,0 +1,41 @@
+<h3> Case Evaluation for <%= @evaluation.student_first_name%> <%= @evaluation.student_last_name%> </h3>
+<h4> By <%= @evaluation.evaluator_first_name%> <%= @evaluation.evaluator_last_name%></h4>
+
+Edit Details
+  <form action="/applications/<%= params.fetch(:app_id)%>/case/<%= @evaluation.id%>/update_evaluation" method="post">
+    <div>
+      <label for="brainstorming_score">Brainstorming Score: </label>
+      <input id="brainstorming_score" type="number" name="input_brainstorming_score" value=<%= @evaluation.brainstorming_score%>>
+    </div>
+    
+    <div>
+      <label for="contribution_score">Contribution Score: </label>
+      <input id="contribution_score" type="number" name="input_contribution_score" value=<%= @evaluation.contribution_score%>>
+    </div>
+
+    <div>
+      <label for="insights_score">Insights Score: </label>
+      <input id="insights_score" type="number" name="input_insights_score" value=<%= @evaluation.insights_score%>>
+    </div>
+
+    <div>
+      <label for="group_score">Group Score: </label>
+      <input id="group_score" type="number" name="input_group_score" value=<%= @evaluation.group_score%>>
+    </div>
+
+    <div>
+      <label for="comments">Comments: </label>
+      <input id="comments" type="text" name="input_comments" value=<%= @evaluation.comments%>>
+    </div>
+
+    <div>
+      <label for="feedback">Feedback: (REMINDER: Applicants will see what you type here) </label>
+      <input id="feedback" type="text" name="input_feedback" value=<%= @evaluation.feedback%>>
+    </div>
+    
+    <button> Update </button>
+  </form>
+
+  <form action = "/applications/<%= @app.id%>/case/<%= @evaluation.id%>/delete_evaluation" method = "get">
+    <button> Delete </button>
+  </form>

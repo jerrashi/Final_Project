@@ -1,0 +1,127 @@
+<h1> List of Evaluations </h1>
+
+<h2> Behaviorals </h2>
+<table border="1">
+  <tr>
+    <th>
+      Evaluator
+    </th>
+
+    <th>
+      Consulting
+    </th>
+
+    <th>
+      Diversity
+    </th>
+
+    <th>
+      Interest
+    </th>
+
+    <th>
+      Teamwork
+    </th>
+
+    <th>
+      Total Score
+    </th>
+
+    <th>
+      Comments
+    </th>
+  </tr>
+
+  <% @behaviorals.each do |interview| %>
+    <tr>
+      <td>
+        <a href="users/<%= interview.evaluator_id%>">
+          <%= interview.evaluator_first_name%> <%= interview.evaluator_last_name%>
+        </a>
+      </td>
+
+      <td>
+        <%= interview.consulting_score%>
+      </td>
+
+      <td>
+        <%= interview.diversity_score%>
+      </td>
+
+      <td>
+        <%= interview.interest_score%>
+      </td>
+
+      <td>
+        <%= interview.teamwork_score%>
+      <td>
+
+      <td>
+        <%= interview.total_score%>
+      </td>
+
+      <td>
+        <%= interview.comments%>
+      </td>
+    </tr>
+  <%end%>
+</table>
+
+<h2> Cases </h2>
+<table border="1">
+  <tr>
+    <th>
+      Evaluator
+    </th>
+
+    <th>
+      Contribution to Group Dynamic
+    </th>
+
+    <th>
+      Brainstorming Questions
+    </th>
+
+    <th>
+      Insights/Breakthoughs
+    </th>
+
+    <th>
+      Group Score
+    </th>
+
+    <th>
+      Comments
+    </th>
+  </tr>
+
+  <% @cases.each do |the_case| %>
+    <tr>
+      <td>
+        <a href="users/<%= the_case.evaluator_id%>">
+          <%= the_case.evaluator_first_name%> <%=the_case.evaluator_last_name%>
+        </a>
+      </td>
+
+      <td>
+        <%= the_case.contribution_score %>
+      </td>
+
+      <td>
+        <%= the_case.brainstorming_score %>
+      </td>
+
+      <td>
+        <%= the_case.insights_score %>
+      </td>
+
+      <td>
+        <%= the_case.group_score%>
+      <td>
+
+      <td>
+        <%= the_case.comments %>
+      </td>
+    </tr>
+  <%end%>
+</table>
